@@ -1,0 +1,18 @@
+CREATE TABLE employee (
+	id INT(12) NOT NULL AUTO_INCREMENT,
+	emp_code VARCHAR(50) NULL DEFAULT NULL,
+	status TINYINT(1) NULL DEFAULT 1,
+	designation_id INT(12) NULL DEFAULT NULL,
+	first_name VARCHAR(255) NULL DEFAULT NULL,
+	last_name VARCHAR(255) NULL DEFAULT NULL,
+	email VARCHAR(255) NULL DEFAULT NULL,
+	phone VARCHAR(255) NULL DEFAULT NULL,
+	daily_salary VARCHAR(255) NULL DEFAULT NULL,
+	monthly_salary VARCHAR(255) NULL DEFAULT NULL,
+	created VARCHAR(255) NULL DEFAULT NULL,
+	modified VARCHAR(255) NULL DEFAULT NULL,
+	PRIMARY KEY(id),
+	INDEX idx_emp_code(emp_code),
+	INDEX idx_status(status),
+	INDEX idx_designation_id(designation_id)
+);
