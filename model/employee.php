@@ -2,11 +2,11 @@
 
 class Employee extends \BaseModel {
 	public function __construct($db) {
-		parent::__construct($db, 'employee');
+		parent::__construct($db, 'employees');
 	}
 
 	public function add_employee($params) {
-		$this->error_log(json_encode($params));
+
 		$date = date(DEFAULT_DATE_TIME_FORMAT);
 		$insert = [];
 		$res = [];
@@ -127,6 +127,10 @@ class Employee extends \BaseModel {
 
 		return $res;
 
+	}
+
+	public function search_employee($params) {
+		
 	}
 }
 

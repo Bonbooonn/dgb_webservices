@@ -1,7 +1,7 @@
 <?php
-namespace Employee;
+namespace Designation;
 
-class SearchEmployeeController extends \BaseController {
+class GetDesignationDetailsController extends \BaseController {
 
 	public function __construct($app) {
 		parent::__construct($app);
@@ -10,14 +10,19 @@ class SearchEmployeeController extends \BaseController {
 	public function exec() {
 		try {
 			$params = $this->getRequestParams();
-			$ee = new \Employee($this->getDbConnection());
-			$res = $ee->search_employee($params);
+			$db = $this->getDbConfig();
+
+			$ds = new \Designation($this->getDbConnection());
+
+			$res = $ds->get_designation_details($params);
+
 			$this->response = [
 				'status' => 'success',
 				'res' => $res
 			];
 
 			$this->printResponse();
+
 		} catch ( Exception $e ) {
 			$this->error_log($e->getMessage());
 		}

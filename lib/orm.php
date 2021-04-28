@@ -14,6 +14,8 @@ class Orm {
 	private $values = [];
 	private $placeholders = [];
 	private $result = [];
+	private $_limit = null;
+	private $_offset = null;
 
 	private $joins = [];
 
@@ -388,6 +390,11 @@ class Orm {
 		return $this->_conn;
 	}
 
+	public function no_group() {
+		$this->_group_columns = [];
+		return $this->_conn;
+	}
+
 	/**
 	 * [order_by Determine the order in the result set] for single columns only
 	 * @param  [String] [column name]
@@ -416,6 +423,26 @@ class Orm {
 	 */
 	public function order_by_expr($column) {
 		$this->_order_columns[] = $column;
+		return $this->_conn;
+	}
+
+	public function limit($limit) {
+		$this->_limit = $limit;
+		return $this->_conn;
+	}
+
+	public function no_limit() {
+		$this->_limit = null;
+		return $this->_conn;
+	}
+
+	public function offset($offset) {
+		$this->_offset = $offset;
+		return $this->_conn;
+	}
+
+	public function no_offset() {
+		$this->_offset = null;
 		return $this->_conn;
 	}
 
@@ -457,6 +484,24 @@ class Orm {
 		}
 
 		return $this->result;
+	}
+
+	private function build_limit() {
+
+		if ( empty($this->_limit) ) {
+			return null;
+		}
+
+		return " LIMIT " . $this->_limit;
+	}
+
+	private function build_offset() {
+		
+		if ( strlen($this->_offset) <= 0 ) {
+			return null;
+		}
+
+		return " OFFSET " . $this->_offset;
 	}
 
 	private function _run_select_one() {
@@ -510,7 +555,9 @@ class Orm {
 		$joins = $this->build_joins();
 		$group = $this->build_group();
 		$order = $this->build_order();
-		$this->select_query = $select_query . $joins . $where . $group . $order;
+		$limit = $this->build_limit();
+		$offset = $this->build_offset();
+		$this->select_query = $select_query . $joins . $where . $group . $order . $limit . $offset;
 		return $this->select_query;
 	}
 
@@ -640,6 +687,8 @@ class Orm {
 		$this->result_columns = [];
 		$this->_group_columns = [];
 		$this->joins = [];
+		$this->_limit = null;
+		$this->_offset = null;
 
 	}
 
@@ -648,6 +697,10 @@ class Orm {
 		$this->db = [];
 		$this->_table = [];
 		$this->_conn = [];
+	}
+
+	function __destruct() {
+		$this->clean();
 	}
 
 }

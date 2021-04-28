@@ -1,7 +1,7 @@
 <?php
-namespace Employee;
+namespace Designation;
 
-class SearchEmployeeController extends \BaseController {
+class DeleteDesignationController extends \BaseController {
 
 	public function __construct($app) {
 		parent::__construct($app);
@@ -10,8 +10,14 @@ class SearchEmployeeController extends \BaseController {
 	public function exec() {
 		try {
 			$params = $this->getRequestParams();
-			$ee = new \Employee($this->getDbConnection());
-			$res = $ee->search_employee($params);
+			$db = $this->getDbConfig();
+			$db->startTransaction();
+
+			$ds = new \Designation($this->getDbConnection());
+
+			$res = $ds->delete_designation($params);
+
+			$db->commitTransaction();
 			$this->response = [
 				'status' => 'success',
 				'res' => $res
@@ -19,6 +25,7 @@ class SearchEmployeeController extends \BaseController {
 
 			$this->printResponse();
 		} catch ( Exception $e ) {
+			$db->rollbackTransaction();
 			$this->error_log($e->getMessage());
 		}
 	}

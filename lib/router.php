@@ -18,6 +18,13 @@ class Router {
 
 	public function run() {
 		$url_param = isset($_SERVER['REQUEST_URI']) ? $_SERVER['REQUEST_URI'] : null;
+
+		if ( $this->_request_type == "GET" ) {
+			if ( preg_match("/[?]/i", $url_param) ) {
+				$url_param = substr($url_param, 0, strpos($url_param, "?"));
+			}
+		}
+
 		if ( in_array($url_param, $this->_url) ) {
 			$key = array_search($url_param, $this->_url);
 			call_user_func($this->_methods[$key]);
@@ -52,6 +59,12 @@ class Router {
 		if ($method != null) {
 			$this->_methods[] = $method;
 		}
+	}
+
+	function __destruct() {
+		$this->_methods = [];
+		$this->_url = [];
+		$this->_request_type = "";
 	}
 
 }

@@ -1,5 +1,7 @@
 <?php
 
+define('DEFAULT_PAGE', 1);
+define('DEFAULT_PER_PAGE', 10);
 define("DOC_ROOT", $_SERVER['DOCUMENT_ROOT']);
 define('DEFAULT_DATE_FORMAT', 'Y-m-d');
 define('DEFAULT_DATE_TIME_FORMAT', 'Y-m-d H:i:s');

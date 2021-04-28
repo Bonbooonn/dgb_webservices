@@ -4,6 +4,7 @@ class BaseModel {
 	private $db = null;
 	private $table = null;
 	private $ormObj = null;
+	public $appOrm = null;
 
 	public function __construct($db, $table = null) {
 		$this->db = $db;
@@ -17,6 +18,7 @@ class BaseModel {
 
 	private function setOrm() {
 		$this->ormObj = new Orm($this->db, $this->table);
+		$this->appOrm = $this->ormObj;
 	}
 
 	public function getOrm() {

@@ -56,6 +56,10 @@ class DBConfig {
 		self::$dbConnection->prepare($query);
 		return self::$dbConnection;
 	}
+
+	function __destruct() {
+		self::$dbConnection = null;
+	}
 }
 
 ?>
