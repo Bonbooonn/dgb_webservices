@@ -26,11 +26,23 @@ class Designation extends \BaseModel {
 			->where('designation', $designation)
 			->get_one_result();
 
-		if ( !empty($check_designation) ) {
+		if ( !empty($check_designation) && empty($params['designation_id']) ) {
 			return [
 				'success' => false,
 				'message' => "Designation already exists!"
 			];
+		}
+
+		if ( !empty($params['sss']) ) {
+			$insert['sss'] = $params['sss'];
+		}
+
+		if ( !empty($params['phil_health']) ) {
+			$insert['phil_health'] = $params['phil_health'];
+		}
+
+		if ( !empty($params['pag_ibig']) ) {
+			$insert['pag_ibig'] = $params['pag_ibig'];
 		}
 
 		$insert['designation'] = $designation;
@@ -66,6 +78,9 @@ class Designation extends \BaseModel {
 
 		$this->appOrm
 			->select('designations.id', 'designation_id')
+			->select('designations.sss')
+			->select('designations.pag_ibig')
+			->select('designations.phil_health')
 			->select('designations.designation')
 			->select_expr('COUNT(CASE WHEN employees.status = 1 THEN employees.designation_id ELSE null END)', 'ee_count')
 			->join('LEFT OUTER JOIN employees', 'employees.designation_id = designations.id')
@@ -140,6 +155,18 @@ class Designation extends \BaseModel {
 			'success' => false,
 			'message' => "An error occured"
 		];
+	}
+
+	public function select2_designations($params) {
+		$res = $this->getOrm()
+			->select('id')
+			->select('designation')
+			->get_result_set();
+
+		if ( !empty($res['result']) ) {
+			return $res['result'];
+		}
+		return [];
 	}
 }
 

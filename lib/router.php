@@ -23,13 +23,18 @@ class Router {
 			if ( preg_match("/[?]/i", $url_param) ) {
 				$url_param = substr($url_param, 0, strpos($url_param, "?"));
 			}
-		}
 
+			if ( preg_match("/\/dgb_webservice/i", $url_param) ) {
+				$url_param = str_replace("/dgb_webservice", '', $url_param);
+			}
+		}
+		
 		if ( in_array($url_param, $this->_url) ) {
 			$key = array_search($url_param, $this->_url);
 			call_user_func($this->_methods[$key]);
 		} else {
 			http_response_code(404);
+			include_once("404.html");
 		}
 		
 	}

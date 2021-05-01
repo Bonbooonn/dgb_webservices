@@ -16,3 +16,5 @@ CREATE TABLE employees (
 	INDEX idx_status(status),
 	INDEX idx_designation_id(designation_id)
 );
+
+ALTER TABLE employees ADD COLUMN middle_name VARCHAR(255) NULL DEFAULT NULL AFTER first_name;

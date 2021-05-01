@@ -1,5 +1,6 @@
 <?php
 date_default_timezone_set('Asia/Manila');
+define('DIR', dirname(__FILE__));
 
 require "lib/router.php";
 require "lib/const.php";

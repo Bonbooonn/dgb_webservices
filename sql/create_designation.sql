@@ -6,3 +6,7 @@ CREATE TABLE designations (
 	PRIMARY KEY(id),
 	UNIQUE idx_unq_designation(designation)
 );
+
+ALTER TABLE designations ADD COLUMN `sss` VARCHAR(255) NULL DEFAULT NULL AFTER designation;
+ALTER TABLE designations ADD COLUMN `pag_ibig` VARCHAR(255) NULL DEFAULT NULL AFTER sss;
+ALTER TABLE designations ADD COLUMN `phil_health` VARCHAR(255) NULL DEFAULT NULL AFTER pag_ibig;

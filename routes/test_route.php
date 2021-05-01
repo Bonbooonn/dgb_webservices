@@ -1,6 +1,8 @@
 <?php
 
-// $app->get("/test/mytest", function() use ($app) {
-// 	echo "<pre>";
-// 	print_r($app->getRequestBody());
-// });
+$router->get("/test", function() use ($app) {
+	// echo "<pre>";
+	// print_r($_SERVER);
+	// echo DOC_ROOT;
+	echo dirname($_SERVER['PHP_SELF']);
+});
