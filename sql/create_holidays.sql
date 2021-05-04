@@ -1,0 +1,14 @@
+CREATE TABLE holidays (
+	id INT(12) NOT NULL AUTO_INCREMENT,
+	holiday VARCHAR(100) NULL DEFAULT NULL,
+	holiday_date VARCHAR(100) NULL DEFAULT NULL,
+	created VARCHAR(255) NULL DEFAULT NULL,
+	modified VARCHAR(255) NULL DEFAULT NULL,
+	PRIMARY KEY(id)
+);
+
+ALTER TABLE holidays ADD COLUMN year VARCHAR(10) NULL DEFAULT NULL AFTER holiday_date,
+ADD INDEX idx_year(year);
+
+ALTER TABLE holidays ADD COLUMN holiday_type TINYINT(1) NULL DEFAULT NULL AFTER holiday_date,
+ADD INDEX idx_holiday_type(holiday_type);

@@ -533,9 +533,24 @@ class Orm {
 			}
 
 		}
-		$this->LATEST_QUERY = $pdo_obj->queryString;
+		$this->LATEST_QUERY = $this->build_select_shows();
 		$this->pdo_obj = $pdo_obj;
 		return $pdo_obj->execute();
+	}
+
+	private function build_select_shows() {
+		$sql_query = $this->build_select_query();
+		$values = $this->values;
+		foreach ( $values as $val_key => $value_val ) {
+
+			if ( $value_val != NULL ) {
+				$sql_query = str_replace($val_key, $value_val, $sql_query);
+			}
+
+		}
+
+		return $sql_query;
+
 	}
 
 	private function build_select_query() {
@@ -591,7 +606,7 @@ class Orm {
 			if ( strpos($col_val, "<>") > 0 ) {
 				$where .= "{$col_val} {$where_place_holders[$col_key]}";
 			} else if ( preg_match("/RAW/i", $col_val) ) {
-				$where .= str_replace("RAW", '', $col_val);
+				$where .= str_replace("RAW", ' ', $col_val);
 			} else if ( strpos($col_val, "LIKE") ) {
 				$where .= "{$col_val} {$where_place_holders[$col_key]}";
 			} else {

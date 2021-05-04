@@ -3,13 +3,20 @@
 class BaseController {
 	private $app = [];
 	private $dbConnection = null;
-	public $response = [];
 	private $logger = null;
+	private $mainApp = null;
+	public $response = [];
 
+	
 	public function __construct($app) {
-		$this->app = $app['router'];
+		$this->app = $app['router']; // router
 		$this->dbConnection = $app['db'];
 		$this->logger = $app['logger'];
+		$this->mainApp = $app;
+	}
+
+	public function getApp() {
+		return $this->mainApp;
 	}
 
 	public function getRequestParams() {

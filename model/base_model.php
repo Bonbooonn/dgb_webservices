@@ -45,6 +45,13 @@ class BaseModel {
 	    return $str[0] === $char;
 	}
 
+	public function return_message($status, $message) {
+		return [
+			'success' => $status,
+			'message' => $message
+		];
+	}
+
 }
 
 ?>

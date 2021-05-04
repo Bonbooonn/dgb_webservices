@@ -14,6 +14,7 @@ $app['db'] = new DBConfig();
 $app['logger'] = new Logger();
 
 require "controller/base_controller.php";
+require "model/base_model.php";
 require "model/models.php";
 require_once "routes/routes.php";
 
